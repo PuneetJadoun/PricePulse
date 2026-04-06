@@ -4,46 +4,65 @@ import { Input } from "./ui/input"
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
+import { AuthModal } from "./AuthModal";
+
 
 const AddProductForm = ({ user }) => {
   
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
-  const handleSubmit = async (e) => {}
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+  }
 
   return (
-    <form onSubmit={handleSubmit}  className="w-full max-w-2xl mx-auto">
-      <div className="flex flex-col sm:flex-row gap-2">
+    <>
+      <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
+        <div className="flex flex-col sm:flex-row gap-2">
         
-        <Input
-          type="url"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          placeholder="Enter product URL (Amazon, eBay, Walmart, etc.)"
-          className="h-12 text-base"
-          required
-          disabled={loading}
-        />
-        
-        <Button className="bg-orange-500 hover:bg-orange-600 h-10 sm:h-12 px-8"
-          type="submit"
-          disabled={loading}
-          size={"lg"}
-        >
-          {loading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Adding...
-            </>
-          ) : (
-              "Track Price"
-          )} 
+          <Input
+            type="url"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="Enter product URL (Amazon, eBay, Walmart, etc.)"
+            className="h-12 text-base"
+            required
+            disabled={loading}
+          />
+          
+          <Button className="bg-orange-500 hover:bg-orange-600 h-10 sm:h-12 px-8"
+            type="submit"
+            disabled={loading}
+            size={"lg"}
+          >
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Adding...
+              </>
+            ) : (
+                "Track Price"
+            )} 
 
-        </Button>
+          </Button>
 
-      </div>
-    </form>
+        </div>
+      </form>
+
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
+      
+    </>  
   );
 }
 
