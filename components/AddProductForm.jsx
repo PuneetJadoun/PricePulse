@@ -5,6 +5,9 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 import { AuthModal } from "./AuthModal";
+import { toast } from "sonner";
+import { addProduct } from "@/app/actions";
+
 
 
 const AddProductForm = ({ user }) => {
@@ -19,6 +22,24 @@ const AddProductForm = ({ user }) => {
     if (!user) {
       setShowAuthModal(true);
       return;
+    }
+    setLoading(true);
+    
+    const formData = new FormData();
+    formData.append("url", url);
+
+    try {
+      const result = await addProduct(formData);
+
+      if (result.error) {
+        toast.error(result.error);
+      }
+      else {
+        toast.success(result.message || "Product added successfully!");
+        setUrl("");
+      }
+    } finally {
+      setLoading(false);
     }
   }
 

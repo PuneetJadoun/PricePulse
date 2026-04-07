@@ -22,7 +22,7 @@ export function AuthModal({ isOpen, onClose }) {
     await supabase.auth.signInWithOAuth({
       provider: "google",
         options: {
-        redirectTo: `${origin}/auth/callback`
+        redirectTo: `${origin.origin}/auth/callback`
         }
     });
   }
