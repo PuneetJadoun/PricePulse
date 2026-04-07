@@ -115,5 +115,4 @@ export async function POST(request) {
     }
 }
 
-//curl -X POST https://pricepulse.vercel.app/api/cron/check-prices \
-//-H "Authorization: Bearer your_cron_secret"
+// curl -X POST https://pricepulseapp.vercel.app/api/cron/check-prices -H "Authorization: Bearer 9f466d84a643785e4125aa68f8dafce950e1c996e84eb9bd8c779472c4c4e626"
